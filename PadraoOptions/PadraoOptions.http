@@ -1,0 +1,6 @@
+@PadraoOptions_HostAddress = http://localhost:5159
+
+GET {{PadraoOptions_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
