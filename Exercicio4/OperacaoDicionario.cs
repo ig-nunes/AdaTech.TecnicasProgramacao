@@ -1,4 +1,6 @@
-﻿namespace Exercicio4
+﻿using System.Text.RegularExpressions;
+
+namespace Exercicio4
 {
     public class OperacaoDicionario
     {
@@ -6,20 +8,21 @@
 
         public void ContarPalavras(string texto)
         {
-            Dictionary<string, int> contador = new Dictionary<string, int>();
+            var contador = new Dictionary<string, int>(StringComparer.InvariantCultureIgnoreCase);
+            var wordPattern = @"\w+";
 
-            string[] palavras = texto.Split(new char[] { ' ', '.', ',', ';', ':' }, StringSplitOptions.RemoveEmptyEntries);
+            MatchCollection matches = Regex.Matches(texto, wordPattern);
 
-            foreach (string palavra in palavras)
+            foreach (Match match in matches)
             {
-                string palavraFormatada = palavra.ToLower();
-                if (contador.ContainsKey(palavraFormatada))
+                string palavra = match.Value.ToLower();
+                if (contador.ContainsKey(palavra))
                 {
-                    contador[palavraFormatada]++;
+                    contador[palavra]++;
                 }
                 else
                 {
-                    contador[palavraFormatada] = 1;
+                    contador[palavra] = 1;
                 }
             }
 
